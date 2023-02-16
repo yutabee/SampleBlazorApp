@@ -1,0 +1,19 @@
+﻿@page "/sample"
+
+<PageTitle>Sample</PageTitle>
+<h1>Sample</h1>
+<p role="status">Current value: @radius</p>
+
+<div>
+    <svg x=0 y=0 width=200 height=200>
+        <circle cx="100" cy="100" r="@radius" fill="#99f" />
+    </svg>
+</div>
+<div>
+    <input type="range" class="form-control" min="0" max="100" @bind="radius">
+</div>
+
+@code {
+    private int radius = 50;
+}
+
