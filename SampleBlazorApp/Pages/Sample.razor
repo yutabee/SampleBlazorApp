@@ -1,0 +1,19 @@
+﻿@page "/sample"
+@using SampleBlazorApp.Data
+
+<h1>Sample</h1>
+
+<SampleList Items="mydata" Context="item">
+    <ItemTemplate>
+        <li class="list-group-item">@item.Name (@item.Mail).</li>
+    </ItemTemplate>
+</SampleList>
+
+@code {
+    private List<Mydata> mydata = new()
+    {
+        new Mydata("Taro","hoge","taro@yamada"),
+        new Mydata("Hanako", "foo", "hanako@flower"),
+        new Mydata("Sachiko", "bar", "sachiko@happy")
+    };
+}
