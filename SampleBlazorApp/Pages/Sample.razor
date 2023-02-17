@@ -1,0 +1,44 @@
+﻿@page "/sample"
+@using SampleBlazorApp.Data
+@inject MydataService Myservice
+
+<h1>Sample</h1>
+
+@if (mydata == null)
+{
+    <div class="alert alert-secondary">
+        no data...
+    </div>
+}
+else
+{
+    <div class="alert alert-primary">
+        <h5>id = @num</h5>
+        <h6>@mydata.Name (@mydata.Mail)</h6>
+    </div>
+}
+<input class="form-control" type="number" min="0" max="2" value="0" @onchange="OnUpdateData" />
+
+@code {
+    int num = 0;
+    Mydata? mydata;
+
+    //コンポーネントの初期化
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDataFromService();
+    }
+
+    //フィールドが変更された時の処理（@onchange="OnUpdateData"で紐づけ）
+    async void OnUpdateData(ChangeEventArgs e)
+    {
+        num = Int32.Parse(e.Value?.ToString() ?? "0");
+        await GetDataFromService();
+    }
+
+    //MydataServiceのGetMydata Asyncを使ってMydataを取り出す
+    async Task GetDataFromService()
+    {
+        mydata = await Myservice.GetMydataAsync(num);
+    }
+}
