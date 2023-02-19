@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using SampleBlazorApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddDbContext<SampleBlazorAppContext>(options =>
+    options.UseSqlServer(builder.Configuration
+    .GetConnectionString("SampleBlazorAppContext") ??
+    throw new InvalidOperationException("Connection string'SampleBlazorAppContext' not found")));
+
 
 var app = builder.Build();
 
